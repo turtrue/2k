@@ -1,3 +1,5 @@
+"use strict";
+
 document.addEventListener("DOMContentLoaded", function () {
     // NAV
 
@@ -15,9 +17,12 @@ document.addEventListener("DOMContentLoaded", function () {
     const burgerBtn = document.querySelector("#header__burger-btn");
     const header = document.querySelector("#header");
 
-    burgerBtn.addEventListener("click", (event) => {
-        event.preventDefault();
-        header.classList.toggle("show");
+    burgerBtn.addEventListener("click", () => {
+        const headerHeight = getComputedStyle(header).height;
+        nav.style.top = headerHeight;
+
+        document.body.classList.toggle("hidden");
+        header.classList.toggle("show-nav");
     });
 
     // SWIPER CASES
@@ -57,6 +62,84 @@ document.addEventListener("DOMContentLoaded", function () {
             clickable: true
         }
     });
+
+    // SERVICE PAGE SUCCESS
+
+    const tabMenu = document.querySelector(".service-page__success-tabs-menu");
+    const tabMenuButtons = document.querySelectorAll(
+        ".service-page__success-tabs-button"
+    );
+    const tabsContentImg = document.querySelector(
+        ".service-page__success-tabs-content img"
+    );
+
+    tabMenu &&
+        tabMenu.addEventListener("click", (event) => {
+            const button = event.target;
+
+            if (
+                button.classList.contains("service-page__success-tabs-button")
+            ) {
+                const src = button.dataset.contentSrc;
+                tabsContentImg.src = src;
+
+                tabMenuButtons.forEach((button) =>
+                    button.classList.remove("active")
+                );
+
+                button.classList.add("active");
+            }
+        });
+
+    // SERVICE PAGE PRICE
+
+    const priceList = document.querySelector(".service-page__price-list");
+    const tableHeadings = document.querySelectorAll(
+        ".service-page__price-table-heading"
+    );
+    const openTableHeadings = document.querySelectorAll(
+        ".service-page__price-table-heading.open"
+    );
+    const tableWrappers = document.querySelectorAll(
+        ".service-page__price-table-wrapper"
+    );
+
+    openTableHeadings.forEach((node) => openAccordion(node));
+
+    priceList &&
+        priceList.addEventListener("click", (event) => {
+            const node = event.target;
+
+            if (node.classList.contains("service-page__price-table-heading")) {
+                if (!node.classList.contains("open")) {
+                    resetAccordion();
+                    openAccordion(node);
+                } else {
+                    resetAccordion();
+                }
+            } else {
+                resetAccordion();
+            }
+        });
+
+    function resetAccordion() {
+        tableHeadings.forEach((node) => {
+            node.classList.remove("open");
+        });
+        tableWrappers.forEach((node) => {
+            node.style.height = 0;
+        });
+    }
+
+    function openAccordion(node) {
+        node.classList.add("open");
+        const nextNode = node.nextElementSibling;
+        const nextNodeChild = nextNode.querySelector(
+            ".service-page__price-table"
+        );
+        const height = nextNodeChild.offsetHeight;
+        nextNode.style.height = height + "px";
+    }
 
     // CASES
 

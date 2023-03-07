@@ -381,8 +381,14 @@
                     </ul> -->
                 </nav>
 
+                <div class="header__contacts">
+                    <a href="tel:<?php echo carbon_get_theme_option('site_phone_digits'); ?>" title="Получить консультацию">
+                        <?php echo carbon_get_theme_option('site_phone'); ?>
+                    </a>
+                </div>
+
                 <div class="header__burger">
-                    <a id="header__burger-btn" href="#">&#9776;</a>
+                    <button id="header__burger-btn">&#9776;</button>
                 </div>
             </div>
         </header>

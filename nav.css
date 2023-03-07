@@ -1,0 +1,80 @@
+.nav {
+    font-size: 0.625em;
+    text-transform: uppercase;
+    letter-spacing: 0.2em;
+}
+.nav > ul {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1px;
+}
+.nav li {
+    position: relative;
+}
+.nav ul li.has-children::after {
+    content: "";
+    width: 0.6em;
+    height: 0.6em;
+    position: absolute;
+    top: 50%;
+    right: 0.5em;
+    border-top: 1px solid white;
+    border-right: 1px solid white;
+    border-bottom: 1px solid transparent;
+    border-left: 1px solid transparent;
+    transform: rotate(-45deg) translateY(-50%);
+    transition: all var(--transition);
+}
+.nav ul li:hover::after {
+    border-top-color: transparent;
+    border-right-color: transparent;
+    border-left-color: white;
+    border-bottom-color: white;
+    top: calc(50% - 0.3em);
+}
+.nav a {
+    padding: 1.5em 2em;
+    display: block;
+    color: inherit;
+    overflow: hidden;
+    white-space: nowrap;
+    background-color: var(--secondary);
+    text-overflow: ellipsis;
+    transition: background-color var(--transition);
+}
+.nav a:hover {
+    background-color: var(--accent);
+}
+.nav a.active {
+    background-color: var(--accent);
+}
+
+/* SUB NAV */
+
+.nav li ul {
+    width: 20em;
+    position: absolute;
+    z-index: 1;
+    visibility: hidden;
+    opacity: 0;
+    box-shadow: 0 0.25em 0.25em 0 rgba(0, 0, 0, 0.2);
+    transition: visibility var(--transition), opacity var(--transition);
+}
+.nav li ul li {
+    border-top: 1px solid var(--primary);
+    border-right: 1px solid var(--primary);
+}
+.nav li ul li:last-child {
+    border-bottom: 1px solid var(--primary);
+}
+.nav li ul li ul li {
+    border-left: 1px solid var(--primary);
+}
+.nav li:hover > ul {
+    visibility: visible;
+    opacity: 1;
+}
+.nav li > ul li ul {
+    top: -1px;
+    right: -20em;
+}

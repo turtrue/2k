@@ -3,6 +3,7 @@
 /* xl <= Extra extra large (xxl) */
 @media (max-width: 1400px) {
     /* RESET FRAME EFFECT */
+
     .frames {
         width: initial;
         height: initial;
@@ -70,20 +71,10 @@
 
 /* lg <= Extra large (xl) */
 @media (max-width: 1200px) {
-    .header {
-        padding: 0.2em 0;
-    }
-    .header .container {
-        flex-wrap: wrap;
-    }
 }
 
 /* md <= Large (lg) */
 @media (max-width: 992px) {
-    .header__logo {
-        margin-bottom: 0.2em;
-    }
-
     .cases__item-info {
         display: none;
     }
@@ -91,36 +82,57 @@
 
 /* sm <= Medium (md) */
 @media (max-width: 768px) {
-    .header.show {
-        height: 100%;
+    body.hidden {
+        overflow: hidden;
     }
-    .header.show .nav {
-        display: block;
-    }
-    .header__logo {
-        margin-bottom: 0;
-    }
+
     .header__burger {
         display: block;
     }
 
     .nav {
+        height: 100vh;
         position: absolute;
-        top: 7em;
         right: 0;
-        bottom: 0;
         left: 0;
-        display: none;
-        background-color: var(--primary);
+        visibility: hidden;
+        background-color: white;
+        overflow-y: auto;
+        transform: translateX(100%);
+        transition: visibility var(--transition), transform var(--transition);
+    }
+    .header.show-nav .nav {
+        visibility: visible;
+        transform: translateX(0);
     }
     .nav > ul {
         flex-direction: column;
+        border-top: 1px solid rgba(0, 0, 0, 0.1);
+        border-bottom: 1px solid rgba(0, 0, 0, 0.1);
     }
-    .nav ul li.has-child::after {
-        display: none;
+    .nav > ul li + li {
+        margin-left: 0;
+        border-top: 1px solid rgba(0, 0, 0, 0.1);
     }
-    .nav li > ul {
-        display: none;
+    .nav > ul li a {
+        padding: 0.5em 1em;
+        display: block;
+    }
+
+    .footer .nav {
+        height: initial;
+        position: initial;
+        visibility: initial;
+        transform: initial;
+        background-color: initial;
+    }
+    .footer .nav > ul {
+        flex-direction: initial;
+        border: initial;
+    }
+    .footer .nav > ul li + li {
+        margin-left: 1em;
+        border-top: initial;
     }
 
     .first-screen__heading {
@@ -139,13 +151,28 @@
         gap: 2em;
     }
 
+    .service-card {
+        max-width: initial;
+    }
+
     .seo__body {
         flex-direction: column;
+    }
+
+    .footer .footer__col {
+        flex: 1 1 100%;
     }
 }
 
 /* xs <= Small (sm) */
 @media (max-width: 576px) {
+    .header__logo img {
+        height: 50px;
+    }
+    .header__contacts a {
+        font-size: 1.2em;
+    }
+
     .first-screen__heading {
         font-size: 3em;
     }
